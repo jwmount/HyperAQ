@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HyperAQ</title>
+    <%= csrf_meta_tags %>
+
+    <!-- React and JQuery -->
+	<script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+	<script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+	   <!-- Opal and Hyperloop -->
+	<script src="https://rawgit.com/ruby-hyperloop/hyperloop-js/master/opal-compiler.min.js"></script>
+	<script src="https://rawgit.com/ruby-hyperloop/hyperloop-js/master/hyperloop.min.js"></script>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <script type="text/ruby">
+
+    class Helloworld < Hyperloop::Component
+
+      def render
+        DIV do
+          "hello world !"
+        end
+      end
+
+    end
+
+  </script>
+
+  
+  <body>
+  	<div data-hyperloop-mount="Helloworld" data-name="">
+  	</div>
+  </body>
+ 
+</html>
