@@ -6,3 +6,5 @@ rails g model WaterManager state:string http_host:string --force
 rails g model SprinkleEvent sprinkle_id:integer valve_id:integer history_id:integer
 
 rails g hyperloop:install
+
+rails g rails g hyper:component App
