@@ -1,0 +1,2 @@
+class WaterManager < ApplicationRecord
+end
