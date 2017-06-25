@@ -7,4 +7,4 @@ rails g model SprinkleEvent sprinkle_id:integer valve_id:integer history_id:inte
 
 rails g hyperloop:install
 
-rails g rails g hyper:component App
+rails g hyper:component App
