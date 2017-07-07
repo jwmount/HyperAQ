@@ -12,13 +12,7 @@ def seed_time(delay)
 end
 
 # create the top-level WaterManager singleton
-WaterManager.create(state: 'Standby', http_host: "somebody:1900")
-#
-# create the Porter singleton which polls the environment to fetch server port_number, and host_name
-# create the singleton with dummy values, they will be filled in when porter.manipulate_and_update(params, request) is called
-# from the controller.
-#
-Porter.create(port_number: "2000", host_name: "somebody")
+WaterManager.create(state: 'Standby', http_host: "localhost:3000")
 #
 # rails g scaffold Valve name:string pin:integer --force
 atrium = Valve.create(name: 'Atrium', gpio_pin: 7, bb_pin: 27, cpu2bb_color: 'red',         relay_module: 2, relay_index: 1, cmd: 0, base_time: Time.now)

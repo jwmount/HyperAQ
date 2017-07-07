@@ -38,11 +38,7 @@ class Navbar < Hyperloop::Component
     state_toggle['Standby'] = 'Active'
     state_toggle['Active'] = 'Standby'
     WaterManager.singleton.state = state_toggle[WaterManager.singleton.state]
-    WaterManager.singleton.save
-    #
-    # invoke ServerOp here to effect the system state change just requested
-    # 
-    SystemStateChange
+    WaterManager.singleton.update(state: WaterManager.singleton.state)
   end
 
   def system_button_state
@@ -56,9 +52,6 @@ class Navbar < Hyperloop::Component
   # system host:port methods
 
   def system_host
-    Document.ready? do
-      fake_http_patch
-    end
     "http://#{WaterManager.singleton.http_host}"
   end
 
@@ -81,20 +74,4 @@ class Navbar < Hyperloop::Component
     valve_class[valve.cmd.to_s]
   end
 
-  # http methods to support ServerOp FetchPortNumber{}
-  def fake_http_patch
-    # refer to https://github.com/opal/opal-jquery in order to build a patch request inside state_button_toggled
-
-    WaterManager.singleton.save
-    Porter.first.update(port_number: '2999', host_name: 'foober')
-  end
-
-  def update_model_record(model)
-     route = "/#{model.class.name.pluralize}"
-     payload = model.to_json
-     HTTP.patch(route, payload) do |req| #needs id
-       #set breakpoint at porters index and inspect the request hash, looking for 
-       #the actual request string received.
-     end
-  end
 end

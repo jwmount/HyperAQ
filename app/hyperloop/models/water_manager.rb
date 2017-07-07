@@ -14,8 +14,6 @@ class WaterManager < ApplicationRecord
   if RUBY_ENGINE != 'opal'
     require 'logger'
 
-    # SystemStateChange{}
-
     def logger
       if !@logger
         @logger = Logger.new("#{Rails.root}/log/application.log")
@@ -27,11 +25,14 @@ class WaterManager < ApplicationRecord
     # handle the side effect(s) of a database update prior to actually doing the update
     def manipulate_and_update(params, request)
       # pick off http_host from request.env hash, add to params for WaterManager update, only once.
-      if host_with_port.to_s.empty?
-        params["http_host"] = "#{request.host}:#{request.port}"
-        update(params)
-        true
+      logger.info "params #{params}"
+      WaterManager.first.host_with_port = "#{request.host}:#{request.port}"
+      if params.state == 'Active'
+        arm
+      else
+        disarm
       end
+      update(params)
     end
 
     def arm

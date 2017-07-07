@@ -6,7 +6,6 @@ rails g model Valve name:string gpio_pin:integer cpu2bb_color:string bb_pin:inte
 rails g model WaterManager state:string http_host:string --force s
 
 rails g scaffold ScheduledSprinkleEvent sprinkle_id:integer valve_id:integer history_id:integer valve_cmd:integer 
-rails g scaffold Porter port_number:string host_name:string
 
 sh dev-bounce-db.sh
 rails g hyperloop:install
