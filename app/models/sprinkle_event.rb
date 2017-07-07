@@ -1,2 +1,0 @@
-class SprinkleEvent < ApplicationRecord
-end

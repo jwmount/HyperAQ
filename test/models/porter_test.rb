@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SprinkleEventTest < ActiveSupport::TestCase
+class PorterTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

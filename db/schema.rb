@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170625041526) do
+ActiveRecord::Schema.define(version: 20170630152248) do
 
-  create_table "histories", force: :cascade do |t|
+  create_table "histories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "start_time"
     t.datetime "stop_time"
     t.integer "valve_id"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20170625041526) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "hyperloop_connections", force: :cascade do |t|
+  create_table "hyperloop_connections", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "channel"
     t.string "session"
     t.datetime "created_at"
@@ -28,22 +28,31 @@ ActiveRecord::Schema.define(version: 20170625041526) do
     t.datetime "refresh_at"
   end
 
-  create_table "hyperloop_queued_messages", force: :cascade do |t|
+  create_table "hyperloop_queued_messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.text "data"
     t.integer "connection_id"
   end
 
-  create_table "sprinkle_events", force: :cascade do |t|
-    t.integer "sprinkle_id"
-    t.integer "valve_id"
-    t.integer "history_id"
+  create_table "porters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "port_number"
+    t.string "host_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "sprinkles", force: :cascade do |t|
+  create_table "scheduled_sprinkle_events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "sprinkle_id"
+    t.integer "valve_id"
+    t.integer "history_id"
+    t.integer "valve_cmd"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sprinkles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "next_start_time"
     t.datetime "base_start_time"
+    t.string "state"
     t.string "time_input"
     t.integer "duration"
     t.integer "valve_id"
@@ -51,7 +60,7 @@ ActiveRecord::Schema.define(version: 20170625041526) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "valves", force: :cascade do |t|
+  create_table "valves", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.integer "gpio_pin"
     t.string "cpu2bb_color"
@@ -66,7 +75,7 @@ ActiveRecord::Schema.define(version: 20170625041526) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "water_managers", force: :cascade do |t|
+  create_table "water_managers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "state"
     t.string "http_host"
     t.datetime "created_at", null: false
