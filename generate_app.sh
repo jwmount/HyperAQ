@@ -10,3 +10,9 @@ rails g scaffold ScheduledSprinkleEvent sprinkle_id:integer valve_id:integer his
 sh dev-bounce-db.sh
 rails g hyperloop:install
 rails g hyper:component App
+#
+# channels
+#
+rails generate channel HostAndPort announce
+rails generate channel WaterManagerState announce
+rails generate channel ValveState announce
