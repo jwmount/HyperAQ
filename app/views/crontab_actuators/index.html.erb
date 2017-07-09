@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Crontab Actuators</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>State</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @crontab_actuators.each do |crontab_actuator| %>
+      <tr>
+        <td><%= crontab_actuator.state %></td>
+        <td><%= link_to 'Show', crontab_actuator %></td>
+        <td><%= link_to 'Edit', edit_crontab_actuator_path(crontab_actuator) %></td>
+        <td><%= link_to 'Destroy', crontab_actuator, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Crontab Actuator', new_crontab_actuator_path %>

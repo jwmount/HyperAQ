@@ -1,0 +1,2 @@
+class CrontabActuator < ApplicationRecord
+end

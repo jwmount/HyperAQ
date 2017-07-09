@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Valve:</strong>
+  <%= @valve_actuator.valve_id %>
+</p>
+
+<p>
+  <strong>Cmd:</strong>
+  <%= @valve_actuator.cmd %>
+</p>
+
+<%= link_to 'Edit', edit_valve_actuator_path(@valve_actuator) %> |
+<%= link_to 'Back', valve_actuators_path %>

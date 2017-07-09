@@ -14,6 +14,12 @@ end
 # create the top-level WaterManager singleton
 WaterManager.create(state: 'Standby', http_host: "localhost:3000")
 #
+# Create singleton instances of 3 Server Actuator models
+#
+CrontabActuator.create(state: 'unloaded')
+Porter.create(host_name: 'localhost', port_number: '3000')
+ValveActuator.create(valve_id: 1, cmd: 0)
+#
 # rails g scaffold Valve name:string pin:integer --force
 atrium = Valve.create(name: 'Atrium', gpio_pin: 7, bb_pin: 27, cpu2bb_color: 'red',         relay_module: 2, relay_index: 1, cmd: 0, base_time: Time.now)
 back   = Valve.create(name: 'Back',   gpio_pin:22, bb_pin: 22, cpu2bb_color: 'cream',       relay_module: 1, relay_index: 4, cmd: 0, base_time: Time.now)

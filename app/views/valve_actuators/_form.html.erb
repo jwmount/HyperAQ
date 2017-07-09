@@ -1,0 +1,27 @@
+<%= form_with(model: valve_actuator, local: true) do |form| %>
+  <% if valve_actuator.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(valve_actuator.errors.count, "error") %> prohibited this valve_actuator from being saved:</h2>
+
+      <ul>
+      <% valve_actuator.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :valve_id %>
+    <%= form.number_field :valve_id, id: :valve_actuator_valve_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cmd %>
+    <%= form.number_field :cmd, id: :valve_actuator_cmd %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

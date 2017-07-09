@@ -1,0 +1,22 @@
+<%= form_with(model: crontab_actuator, local: true) do |form| %>
+  <% if crontab_actuator.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(crontab_actuator.errors.count, "error") %> prohibited this crontab_actuator from being saved:</h2>
+
+      <ul>
+      <% crontab_actuator.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :state %>
+    <%= form.text_field :state, id: :crontab_actuator_state %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

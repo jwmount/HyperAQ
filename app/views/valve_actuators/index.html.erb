@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Valve Actuators</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Valve</th>
+      <th>Cmd</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @valve_actuators.each do |valve_actuator| %>
+      <tr>
+        <td><%= valve_actuator.valve_id %></td>
+        <td><%= valve_actuator.cmd %></td>
+        <td><%= link_to 'Show', valve_actuator %></td>
+        <td><%= link_to 'Edit', edit_valve_actuator_path(valve_actuator) %></td>
+        <td><%= link_to 'Destroy', valve_actuator, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Valve Actuator', new_valve_actuator_path %>

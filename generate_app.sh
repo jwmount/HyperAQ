@@ -11,8 +11,9 @@ sh dev-bounce-db.sh
 rails g hyperloop:install
 rails g hyper:component App
 #
-# channels
+# Server Actuator Models, called by manual embedding of patch requests, routed to controller update method.
 #
-rails generate channel HostAndPort announce
-rails generate channel WaterManagerState announce
-rails generate channel ValveState announce
+rails g scaffold CrontabActuator state:string
+rails g scaffold Porter host_name:string port_number:string
+rails g scaffold ValveActuator valve_id:integer cmd:integer
+

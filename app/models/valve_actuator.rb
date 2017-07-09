@@ -1,0 +1,2 @@
+class ValveActuator < ApplicationRecord
+end

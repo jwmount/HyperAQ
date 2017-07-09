@@ -1,0 +1,2 @@
+class Porter < ApplicationRecord
+end

@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170630152248) do
+ActiveRecord::Schema.define(version: 20170709180824) do
+
+  create_table "crontab_actuators", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "histories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "start_time"
@@ -34,8 +40,8 @@ ActiveRecord::Schema.define(version: 20170630152248) do
   end
 
   create_table "porters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "port_number"
     t.string "host_name"
+    t.string "port_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -56,6 +62,13 @@ ActiveRecord::Schema.define(version: 20170630152248) do
     t.string "time_input"
     t.integer "duration"
     t.integer "valve_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "valve_actuators", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "valve_id"
+    t.integer "cmd"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
