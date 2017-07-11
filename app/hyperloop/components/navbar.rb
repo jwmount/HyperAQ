@@ -52,7 +52,8 @@ class Navbar < Hyperloop::Component
   # system host:port methods
 
   def system_host
-    "http://#{WaterManager.singleton.http_host}"
+    # "http://#{WaterManager.singleton.http_host}"
+    Porter.first.host_with_port
   end
 
   # valve methods

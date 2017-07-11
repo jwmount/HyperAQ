@@ -55,14 +55,21 @@ class WaterManager < ApplicationRecord
     end
 
     # minute (0-59), hour (0-23, 0 = midnight), day (1-31), month (1-12), weekday (0-6, 0 = Sunday), command( valve_id, on/off,host:port)
+    # 03 19 * * 2 sh /home/kenb/development/Aquarius/lib/tasks/scheduled_sprinkle_actuator.sh  se s vc hp
+    # where
+    # se --> scheduled_sprinkle_event id
+    # s  --> sprinkle id
+    # vc --> valve cmd
+    # hp --> host_with_port, "Aquarius:2017"
     def install_crontab
       # create a working crontab file
       f = File.open(CRONTAB, 'w')
       f.write "MAIL='keburgett@gmail.com'\n"
       # for each sprinkle, write a crontab entry for OPEN and CLOSE times.
+      p = Porter.first
       Sprinkle.all.each do |s|
         [OPEN, CLOSE].each do |action|
-          crontab_line =  "#{s.to_crontab(action)} sh #{valve_actuator_path} #{s.valve.to_crontab(action)} #{host_with_port}\n" 
+          crontab_line =  "#{s.to_crontab(action)} sh #{valve_actuator_path} #{s.valve.to_crontab(action)} #{p.host_with_port}\n" 
           f.write crontab_line
           # logger.info crontab_line
         end

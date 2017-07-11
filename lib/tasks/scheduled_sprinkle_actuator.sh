@@ -1,4 +1,4 @@
-#!/bin/bash
+1 #!/bin/bash
 # set -vx
 #
 # change the state of a valve by posting to the server in json
@@ -13,6 +13,7 @@ VALVE_CMD=$3
 HTTP_HOST=$4
 /usr/bin/curl -H 'Content-Type: application/json' -X PUT \
     -d '{ \
+    "id": "'"$SCHEDULED_SPRINKLE_EVENT_ID"'", \
     "valve_cmd": "'"$VALVE_CMD"'", \
     "sprinkle_id": "'"$SPRINKLE_ID"'" }' \
     http://$HTTP_HOST/scheduled_sprinkle_events/$SCHEDULED_SPRINKLE_EVENT_ID.json
