@@ -1,5 +1,6 @@
 class PortersController < ApplicationController
   before_action :set_porter, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token
 
   # GET /porters
   # GET /porters.json
@@ -41,6 +42,7 @@ class PortersController < ApplicationController
   # PATCH/PUT /porters/1.json
   def update
     respond_to do |format|
+      logger.info porter_params
       if @porter.manipulate_and_update(porter_params, request)
         format.html { redirect_to @porter, notice: 'Porter was successfully updated.' }
         format.json { render :show, status: :ok, location: @porter }

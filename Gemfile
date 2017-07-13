@@ -60,3 +60,4 @@ gem "opal-jquery" # used to WaterManager state change odd bits.
 gem 'chronic'
 gem 'json'
 gem 'rest-client'
+

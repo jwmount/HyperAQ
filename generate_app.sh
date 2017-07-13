@@ -13,7 +13,7 @@ rails g hyper:component App
 #
 # Server Actuator Models, called by manual embedding of patch requests, routed to controller update method.
 #
-rails g scaffold CrontabActuator state:string
+# rails g scaffold CrontabActuator state:string
 rails g scaffold Porter host_name:string port_number:string
-rails g scaffold ValveActuator valve_id:integer cmd:integer
+# rails g scaffold ValveActuator valve_id:integer cmd:integer
 

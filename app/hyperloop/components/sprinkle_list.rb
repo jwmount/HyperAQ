@@ -1,5 +1,6 @@
 require 'models/sprinkle'
 require 'models/valve'
+require 'time'
 
 class SprinkleList < Hyperloop::Component
   render(DIV) do
@@ -20,7 +21,7 @@ class SprinkleList < Hyperloop::Component
             # TD { "today" }
 
             TD { sprinkle.time_input }    
-            # TD { "tue 8;35 am" }      
+            # TD { "tue 8:35 am" }      
 
             TD { sprinkle.duration.to_s }
             # TD { "duration" }

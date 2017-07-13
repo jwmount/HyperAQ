@@ -1,5 +1,4 @@
 require 'models/application_record'
-require 'time'
 
 class Valve < ApplicationRecord
   has_many :sprinkles
@@ -10,7 +9,7 @@ class Valve < ApplicationRecord
   #has_many :scheduled_sprinkle_events
 
   if RUBY_ENGINE != 'opal'
-
+    require 'time'
     # shorthand for "WaterManager.singleton.logger"
     def logger
       WaterManager.singleton.logger

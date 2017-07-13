@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   resources :valve_actuators
-  resources :crontab_actuators
   mount Hyperloop::Engine => '/hyperloop'
 
   resources :porters

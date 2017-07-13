@@ -5,4 +5,7 @@
 # * This is invoked as the result of one of the valve buttons being pushed and entering the 'on' state (cmd == 1)
 
 class ManualValveActivate < Hyperloop::ServerOp
+  if RUBY_ENGINE != 'opal'
+    system('touch ~/flibber-t-gibbet')
+  end
 end
