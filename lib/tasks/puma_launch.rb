@@ -183,7 +183,7 @@ class PumaLaunch
     if self.options.pidfile
       answer = "--pidfile #{self.options.pidfile}"
     else
-      answer = "--pidfile #{rails_root}/pids/#{self.options.environment}-#{self.options.port}.pid"
+      answer = "--pidfile #{rails_root}/tmp/pids/#{self.options.environment}-#{self.options.port}.pid"
     end
     answer
   end

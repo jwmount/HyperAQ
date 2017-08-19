@@ -1,9 +1,0 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  valve_id: 1
-  cmd: 1
-
-two:
-  valve_id: 1
-  cmd: 1

@@ -2,23 +2,19 @@
 
 class Navbar < Hyperloop::Component
   render(NAV) do
-    NAV(class: 'navbar navbar-inverse') do
+    NAV(class: 'navbar navbar-default') do
       DIV(class: 'container-fluid') do
-        DIV(class: 'navbar-header') do
-          A(class: 'navbar-brand') do
-            system_host
-          end
-        end
-        UL(class: 'nav navbar-nav') do
-          system_button
-        end
-        UL(class: 'nav navbar-nav navbar-right') do
-          Valve.all.each do |valve|
-            LI { valve_button(valve) }
-          end
-        end
+        PorterStatus {}
+        WaterStatus {}
+        ValveButtons {}
       end
     end
+  end
+
+  # system host:port methods
+
+  def system_host
+    Porter.first.host_with_port
   end
 
   # system button methods
@@ -49,20 +45,12 @@ class Navbar < Hyperloop::Component
     state_class[system_state]
   end
 
-  # system host:port methods
-
-  def system_host
-    "http://#{WaterManager.singleton.http_host}"
-    # Porter.first.host_with_port
-    # ManualValveActivate{}
-  end
-
   # valve methods
   
   def valve_button(valve)
-    BUTTON(class: "btn #{valve_state(valve)} navbar-btn") do
+    BUTTON(class: "btn #{command_toggled(valve)} navbar-btn") do
       valve.name
-    end.on(:click) {valve_command_toggled(valve)}
+    end #.on(:click) {valve_command_toggled(valve)}
   end
 
   def valve_command_toggled(valve)

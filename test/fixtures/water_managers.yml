@@ -2,8 +2,6 @@
 
 one:
   state: MyString
-  http_host: MyString
 
 two:
   state: MyString
-  http_host: MyString

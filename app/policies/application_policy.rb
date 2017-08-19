@@ -1,9 +1,9 @@
-        # app/policies/application_policy
+# app/policies/application_policy
 
-        # Policies regulate access to your public models
-        # The following policy will open up full access (but only in development)
-        # The policy system is very flexible and powerful.  See the documentation
-        # for complete details.
+# Policies regulate access to your public models
+# The following policy will open up full access (but only in development)
+# The policy system is very flexible and powerful.  See the documentation
+# for complete details.
 class Hyperloop::ApplicationPolicy
   # Allow any session to connect:
   always_allow_connection

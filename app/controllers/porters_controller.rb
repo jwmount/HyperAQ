@@ -1,68 +1,18 @@
 class PortersController < ApplicationController
-  before_action :set_porter, only: [:show, :edit, :update, :destroy]
+  before_action :set_porter, only: [:show]
   skip_before_action :verify_authenticity_token
-
-  # GET /porters
-  # GET /porters.json
-  def index
-    @porters = Porter.all
-  end
 
   # GET /porters/1
   # GET /porters/1.json
   def show
+    Porter.singleton.host_name = `hostname`.strip
+    Porter.singleton.port_number = request.port
+    Porter.singleton.save!
+    Porter.singleton.to_json
+    Porter.log("Porter.show got called!, #{Porter.singleton.host_with_port}")
+    Porter.singleton.host_with_port.to_json
   end
-
-  # GET /porters/new
-  def new
-    @porter = Porter.new
-  end
-
-  # GET /porters/1/edit
-  def edit
-  end
-
-  # POST /porters
-  # POST /porters.json
-  def create
-    @porter = Porter.new(porter_params)
-
-    respond_to do |format|
-      if @porter.save
-        format.html { redirect_to @porter, notice: 'Porter was successfully created.' }
-        format.json { render :show, status: :created, location: @porter }
-      else
-        format.html { render :new }
-        format.json { render json: @porter.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /porters/1
-  # PATCH/PUT /porters/1.json
-  def update
-    respond_to do |format|
-      logger.info porter_params
-      if @porter.manipulate_and_update(porter_params, request)
-        format.html { redirect_to @porter, notice: 'Porter was successfully updated.' }
-        format.json { render :show, status: :ok, location: @porter }
-      else
-        format.html { render :edit }
-        format.json { render json: @porter.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /porters/1
-  # DELETE /porters/1.json
-  def destroy
-    @porter.destroy
-    respond_to do |format|
-      format.html { redirect_to porters_url, notice: 'Porter was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
+ 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_porter

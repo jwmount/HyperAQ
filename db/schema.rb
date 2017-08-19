@@ -10,18 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170709180824) do
-
-  create_table "crontab_actuators", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "state"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 20170818160022) do
 
   create_table "histories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "start_time"
     t.datetime "stop_time"
     t.integer "valve_id"
+    t.string "start_display"
+    t.string "stop_display"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -46,15 +42,6 @@ ActiveRecord::Schema.define(version: 20170709180824) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "scheduled_sprinkle_events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "sprinkle_id"
-    t.integer "valve_id"
-    t.integer "history_id"
-    t.integer "valve_cmd"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "sprinkles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "next_start_time"
     t.datetime "base_start_time"
@@ -66,16 +53,11 @@ ActiveRecord::Schema.define(version: 20170709180824) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "valve_actuators", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "valve_id"
-    t.integer "cmd"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "valves", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.integer "gpio_pin"
+    t.integer "active_sprinkle_id"
+    t.integer "active_history_id"
     t.string "cpu2bb_color"
     t.integer "bb_pin"
     t.string "bb2relay_color"
@@ -90,7 +72,6 @@ ActiveRecord::Schema.define(version: 20170709180824) do
 
   create_table "water_managers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "state"
-    t.string "http_host"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

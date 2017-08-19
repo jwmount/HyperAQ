@@ -50,5 +50,5 @@ test:
 production:
   <<: *default
   database: HyperAQ_production
-  username: kenb
+  username: HyperAQ
   password: <%= ENV['HyperAQ_DATABASE_PASSWORD'] %>

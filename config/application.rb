@@ -14,8 +14,5 @@ module HyperAQ
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-    config.web_console.whitelisted_ips = '192.168.11.0/16'
-    config.logger = Logger.new('log/application.log')
-    config.logger.datetime_format=("%a %b %-d %l:%M:%S%P ")
   end
 end

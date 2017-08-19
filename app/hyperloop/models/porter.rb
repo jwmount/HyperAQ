@@ -1,24 +1,29 @@
 require 'models/application_record'
 class Porter < ApplicationRecord
+  # attr_reader :host_name
+  # attr_reader :port_number
+
+  def self.singleton
+    Porter.first
+  end
+  
   def host_with_port
     "#{host_name}:#{port_number}"
   end
 
-  # This method should cause a dummy Porter update.
-  # The real attribute values must be
-  def patch_request
-    "PATCH /porters/{id} host_name=localhost&port_number=3000"
-    HTTP.patch("/porters/#{Porter.first.id}.json") do |response|
-      logger.info "response.body #{response.body}"
-    end
+  def localhost_with_port
+    "localhost:#{port_number}"
   end
 
   if RUBY_ENGINE != 'opal'
-    def manipulate_and_update(params, request)
-      logger.info params
-      params['host_name'] = `hostname` 
-      params['port_number'] = request.port
-      update(params)
+    LOGFILE = "log/porter.log"
+
+    def self.log(msg)
+      f = File.open(LOGFILE, 'a')
+      f.write msg
+      f.close
     end
+
   end
+
 end
