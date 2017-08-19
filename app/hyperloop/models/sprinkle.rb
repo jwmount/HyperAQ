@@ -68,7 +68,7 @@ class Sprinkle < ActiveRecord::Base
     #answer a string formatted to crontab time standards.  Answer start_time if action is 1 (OPEN),
     #answer stop_time if action is 0 (CLOSE)
     def to_crontab(action)
-      log "to_crontab(#{action})"
+      # log "to_crontab(#{action})\n"
       if action == OPEN
         t = start_time
         # logger.info "start_time --> #{t.to_i}"    

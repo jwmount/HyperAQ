@@ -4,9 +4,9 @@ class Valve < ApplicationRecord
   has_many :sprinkles
   has_many :histories 
 
-  attr_accessor :active_sprinkle_id
-  attr_accessor :active_history_id
-  attr_accessor :cmd
+  # attr_accessor :active_sprinkle_id
+  # attr_accessor :active_history_id
+  # attr_accessor :cmd
  
   if RUBY_ENGINE != 'opal'
     require 'time'
@@ -61,7 +61,7 @@ class Valve < ApplicationRecord
 
     # send command(s) to Raspberry PI GPIO pins (using WiringPI global shell command, gpio)
     def command(val)
-      log "command(#{val})"
+      log "command(#{val})\n"
       mode = "gpio -g mode #{gpio_pin} out"
       write = "gpio -g write #{gpio_pin} #{val}"
       system(mode)

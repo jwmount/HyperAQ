@@ -1,15 +1,3 @@
-
-  class HistoryList < Hyperloop::Component
-
-   
-
-    def render
-      DIV do
-        "HistoryList"
-      end
-    end
-  end
-
 require 'models/history'
 require 'models/valve'
 require 'time'
@@ -59,14 +47,14 @@ class HistoryList < Hyperloop::Component
         History.all.each do |history| 
           TR do
             
-            # TD { formatted_time(history.start_time) }
-            TD { "start time"}
+            TD { formatted_time(history.start_time) }
+            # TD { "start time"}
 
-            # TD { formatted_time(history.stop_time) }
+            TD { formatted_time(history.stop_time) }
             # TD { "stop time"}
 
             TD { history.valve_id.to_s }
-            # TD { valve_name(history.valve_id) }
+            # TD { Valve.find(history.valve_id).name }
             # TD { "valve.name"}
  
           end
@@ -75,14 +63,15 @@ class HistoryList < Hyperloop::Component
     end
   end
 
-  # def formatted_time(t)
-  #   t.strftime("%a %d %b %l:%M %P")
-  # end
+  def formatted_time(t)
+    return ' ' if t.nil? 
+    t.strftime("%a %d %b %l:%M %P")
+  end
 
-  def valve_name(history)
+  def valve_name(valve_id)
     # problem with History (Histories) belongs_to, has_many relationship to Valve, may be inflection problem.
     # history.valve.name does not work.
-    v = Valve.find(history.valve_id)
-    v.id.to_s
+    v = Valve.find(valve_id)
+    v.name
   end
 end

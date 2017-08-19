@@ -2,10 +2,8 @@
 #
 # precompile assets prior to production deploy
 #
-touch log/application.log
-rm log/application.log
-touch log/development.log
-rm log/development.log
+rm log/*.log
 bundle update
 sh dev-bounce-db.sh
-sh dev-start.sh 
+#  sh dev-start.sh 
+rails s

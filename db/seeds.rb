@@ -52,11 +52,11 @@ end
 #Sprinkle.create( time_input: seed_time(5), duration: 1, valve_id: atrium.id)
 
 # Test Histories
-ix = Time.now
-2.times.each do
-  Valve.all.each do |valve|
-    History.create(valve_id: valve.id, start_time: ix, stop_time: ix + 5*60)
-    ix = ix + 6*60
-  end
-end
+# ix = Time.now
+# 2.times.each do
+#   Valve.all.each do |valve|
+#     History.create(valve_id: valve.id, start_time: ix, stop_time: ix + 5*60)
+#     ix = ix + 6*60
+#   end
+# end
 
