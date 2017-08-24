@@ -34,38 +34,29 @@ class HistoryList < Hyperloop::Component
   end  
     
   render(DIV) do
-    H4 { "Histories"}
+    H4 { "Histories" }
     TABLE(class: 'table-bordered') do
       THEAD do
         TR do
-          TH { "Start time" }
-          TH { "Stop time" }
-          TH { "Valve" }
+          TH { " Start time " }
+          TH { " Stop time " }
+          TH { " Valve " }
         end
       end
       TBODY do
         History.all.each do |history| 
           TR do
             
-            TD { formatted_time(history.start_time) }
-            # TD { "start time"}
+            TD { history.start_time_display }
 
-            TD { formatted_time(history.stop_time) }
-            # TD { "stop time"}
+            TD { history.stop_time_display }
 
-            TD { history.valve_id.to_s }
-            # TD { Valve.find(history.valve_id).name }
-            # TD { "valve.name"}
- 
+            TD { Valve.find(history.valve_id).name }
+            
           end
         end
       end
     end
-  end
-
-  def formatted_time(t)
-    return ' ' if t.nil? 
-    t.strftime("%a %d %b %l:%M %P")
   end
 
   def valve_name(valve_id)

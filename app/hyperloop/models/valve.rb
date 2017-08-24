@@ -3,10 +3,6 @@ require 'models/application_record'
 class Valve < ApplicationRecord
   has_many :sprinkles
   has_many :histories 
-
-  # attr_accessor :active_sprinkle_id
-  # attr_accessor :active_history_id
-  # attr_accessor :cmd
  
   if RUBY_ENGINE != 'opal'
     require 'time'
@@ -27,36 +23,50 @@ class Valve < ApplicationRecord
       f.close
     end
 
-    def manipulate_and_update(params, request)
-      valve = self
-      cmd = params['cmd']
-      active_sprinkle_id = params['active_sprinkle_id']
+    def manipulate_and_update(params, valve)
+     # byebug
+      
+      log "\nvalve --> #{valve.name}\n"
+
+      cmd = params['cmd'].to_i
+      log "cmd --> #{cmd}\n"
+      active_sprinkle_id = params['active_sprinkle_id'].to_i
+      log "active_sprinkle_id --> #{active_sprinkle_id}\n"
+
+      # byebug 
+      
       if cmd == ON # start valve sequence
 
-        # change sprinkle state to ACTIVE
         sprinkle = Sprinkle.find(active_sprinkle_id)
         sprinkle.state = ACTIVE
-        self.active_sprinkle_id = sprinkle.id
+        sprinkle.save
+        log "change sprinkle(#{sprinkle.id}) state to #{sprinkle.state}\n"
+        valve.active_sprinkle_id = sprinkle.id
 
-        # create a new history
-        self.active_history_id = History.start(self).id
-
-        # turn on the valve
+        history = History.start(valve)
+        valve.active_history_id = history.id
+        log "created a new history @ #{history.start_time_display}\n"
+        
+        log "turn on Valve #{valve.name}\n"
         command(ON)
+
       else # stop valve sequence
 
-        # change sprinkle state to IDLE
-        sprinkle = Sprinkle.find(self.active_sprinkle_id)
+        sprinkle = Sprinkle.find(valve.active_sprinkle_id)
         sprinkle.state = IDLE
+        sprinkle.save
+        log "change sprinkle(#{sprinkle.id}) state to #{sprinkle.state}\n"
 
-        # complete the history
-        history = History.find(self.active_history_id)
+        history = History.find(valve.active_history_id)
         history.stop
+        log "update and save History(#{history.id}) @ #{history.stop_time_display}\n"
 
-        # turn off the valve
+        log "turn off Valve #{valve.name}\n"
         command(OFF)
+
       end
-      self.save
+
+      valve.save
     end
 
     # send command(s) to Raspberry PI GPIO pins (using WiringPI global shell command, gpio)

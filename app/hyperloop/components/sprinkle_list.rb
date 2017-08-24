@@ -18,7 +18,9 @@ class SprinkleList < Hyperloop::Component
   before_mount do
     # any initialization particularly of state variables goes here.
     # this will execute on server (prerendering) and client.
-    @sprinkles = Sprinkle.all
+    # @sprinkles = Sprinkle.all.each do |sprinkle|
+    #   sprinkle.update(state: 'Idle')
+    # end
   end
 
   after_mount do
@@ -35,10 +37,11 @@ class SprinkleList < Hyperloop::Component
   end
 
   render(DIV) do
-    H4 { "Sprinkles" }
+    H4 { "Sprinkles"}
     TABLE(class: 'table-bordered') do
       THEAD do
         TR do
+          TH { " State "}
           TH { " Next Start Time " }          
           TH { " Time input " }
           TH { " Duration" }
@@ -46,9 +49,11 @@ class SprinkleList < Hyperloop::Component
         end
       end
       TBODY do
-        @sprinkles.each do |sprinkle| 
+        Sprinkle.all.each do |sprinkle| 
           TR do
-            TD { formatted_time(sprinkle.next_start_time)}
+            TD { sprinkle.state }
+
+            TD { formatted_time(sprinkle.next_start_time) }
           
             TD { sprinkle.time_input }    
           
@@ -63,7 +68,8 @@ class SprinkleList < Hyperloop::Component
 
   def formatted_time(t)
     t = t.nil? ?  Time.now : t
-    t.strftime("%a %d %b %l:%M %P")
+    # t.strftime("%a %d %b %l:%M %P")
+    t.strftime("%a %b %d %l:%M %P")
   end
 
 end

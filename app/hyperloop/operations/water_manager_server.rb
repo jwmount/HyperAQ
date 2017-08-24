@@ -15,7 +15,7 @@ class WaterManagerServer < Hyperloop::ServerOp
     water_manager_update(params.wm_id)
   end
 
-  LOGFILE = "log/water_manager.log"
+  LOGFILE = "log/crontab.log"
 
   def log(msg)
     f = File.open(LOGFILE, 'a')
@@ -28,18 +28,19 @@ class WaterManagerServer < Hyperloop::ServerOp
     # change state
     wm.update(state: (wm.state == ACTIVE ? STANDBY : ACTIVE))
     wm = WaterManager.find(id)
-    log "wm.state --> #{wm.state}\n"
+    # log "wm.state --> #{wm.state}\n"
     
     if wm.state == ACTIVE
-      log "wm.arm\n"
+      # log "wm.arm\n"
       arm
     else
-      log "wm.disarm\n"
+      # log "wm.disarm\n"
       disarm
     end
   end
 
   def arm
+    # log "Installing crontab"
     install_crontab
   end
 
@@ -55,7 +56,7 @@ class WaterManagerServer < Hyperloop::ServerOp
   end
 
   # minute (0-59), hour (0-23, 0 = midnight), day (1-31), month (1-12), weekday (0-6, 0 = Sunday), command(valve_id, on/off, host:port, sprinkle)
-  # 03 19 * * 2 sh /home/kenb/development/Aquarius/lib/tasks/scheduled_sprinkle_actuator.sh  v_id cmd hp s_id
+  # 03 19 * * 2 sh /home/kenb/development/Aquarius/lib/tasks/valve_actuator.sh  v_id cmd hp s_id
 
   # where
 
@@ -77,7 +78,7 @@ class WaterManagerServer < Hyperloop::ServerOp
       end
     end
     f.close
-    # system("crontab #{CRONTAB}")
+    system("crontab #{CRONTAB}")
   end
 
   def remove_crontab

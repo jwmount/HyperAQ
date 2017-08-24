@@ -45,7 +45,8 @@ class PorterStatus < Hyperloop::Component
     UL(class: 'navbar-header') do
       LI do
         BUTTON(class: "btn 'btn-info' navbar-btn") do 
-          Porter.singleton.host_with_port
+          Porter.first.host_with_port
+          # "localhost:3000"
         end
       end
     end
