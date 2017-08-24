@@ -54,6 +54,7 @@ end
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'hyperloop'
-gem 'chronic'
 gem "opal-jquery"
 gem "jquery-rails"
+gem 'json', '~> 1.8', '>= 1.8.3'
+# gem 'opal_hot_reloader'
