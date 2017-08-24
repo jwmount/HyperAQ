@@ -1,9 +1,9 @@
-require 'models/sprinkle'
+require 'models/history'
 require 'models/valve'
-require 'time'
 
-class SprinkleList < Hyperloop::Component
-
+class HistoryRow < Hyperloop::Component
+  param :history
+  
   # param :my_param
   # param param_with_default: "default value"
   # param :param_with_default2, default: "default value" # alternative syntax
@@ -18,9 +18,6 @@ class SprinkleList < Hyperloop::Component
   before_mount do
     # any initialization particularly of state variables goes here.
     # this will execute on server (prerendering) and client.
-    # @sprinkles = Sprinkle.all.each do |sprinkle|
-    #   sprinkle.update(state: 'Idle')
-    # end
   end
 
   after_mount do
@@ -34,32 +31,17 @@ class SprinkleList < Hyperloop::Component
 
   before_unmount do
     # cleanup any thing (i.e. timers) before component is destroyed
-  end
+  end  
+    
+  render do
+    TR do
+      
+      TD { params.history.start_time_display }
 
-  render(DIV) do
-    H4 { "Sprinkles"}
-    TABLE(class: 'table-bordered') do
-      THEAD do
-        TR do
-          TH { " State "}
-          TH { " Next Start Time " }          
-          TH { " Time input " }
-          TH { " Duration" }
-          TH { " Valve " }
-        end
-      end
-      TBODY do
-        Sprinkle.all.each do |sprinkle| 
-          SprinkleRow(sprinkle: sprinkle)
-        end
-      end
-    end  
-  end
+      TD { params.history.stop_time_display }
 
-  def formatted_time(t)
-    t = t.nil? ?  Time.now : t
-    # t.strftime("%a %d %b %l:%M %P")
-    t.strftime("%a %b %d %l:%M %P")
+      TD { Valve.find(params.history.valve_id).name }
+      
+    end
   end
-
 end

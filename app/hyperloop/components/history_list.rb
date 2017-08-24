@@ -45,15 +45,7 @@ class HistoryList < Hyperloop::Component
       end
       TBODY do
         History.all.each do |history| 
-          TR do
-            
-            TD { history.start_time_display }
-
-            TD { history.stop_time_display }
-
-            TD { Valve.find(history.valve_id).name }
-            
-          end
+          HistoryRow(history: history)
         end
       end
     end

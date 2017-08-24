@@ -2,7 +2,8 @@ require 'models/sprinkle'
 require 'models/valve'
 require 'time'
 
-class SprinkleList < Hyperloop::Component
+class SprinkleRow < Hyperloop::Component
+  param :sprinkle
 
   # param :my_param
   # param param_with_default: "default value"
@@ -36,24 +37,18 @@ class SprinkleList < Hyperloop::Component
     # cleanup any thing (i.e. timers) before component is destroyed
   end
 
-  render(DIV) do
-    H4 { "Sprinkles"}
-    TABLE(class: 'table-bordered') do
-      THEAD do
-        TR do
-          TH { " State "}
-          TH { " Next Start Time " }          
-          TH { " Time input " }
-          TH { " Duration" }
-          TH { " Valve " }
-        end
-      end
-      TBODY do
-        Sprinkle.all.each do |sprinkle| 
-          SprinkleRow(sprinkle: sprinkle)
-        end
-      end
-    end  
+  render do
+    TR do
+      TD { params.sprinkle.state }
+
+      TD { formatted_time(params.sprinkle.next_start_time) }
+    
+      TD { params.sprinkle.time_input }    
+    
+      TD { params.sprinkle.duration.to_s }
+    
+      TD { params.sprinkle.valve.name }
+    end
   end
 
   def formatted_time(t)
