@@ -10,14 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170818160022) do
+ActiveRecord::Schema.define(version: 20170820172126) do
 
   create_table "histories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "start_time"
-    t.datetime "stop_time"
+    t.string "start_time_display"
+    t.string "stop_time_display"
     t.integer "valve_id"
-    t.string "start_display"
-    t.string "stop_display"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -44,7 +43,6 @@ ActiveRecord::Schema.define(version: 20170818160022) do
 
   create_table "sprinkles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "next_start_time"
-    t.datetime "base_start_time"
     t.string "state"
     t.string "time_input"
     t.integer "duration"
@@ -65,7 +63,6 @@ ActiveRecord::Schema.define(version: 20170818160022) do
     t.integer "relay_index"
     t.string "relay2valve_color"
     t.integer "cmd"
-    t.datetime "base_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

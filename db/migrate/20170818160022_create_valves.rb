@@ -12,7 +12,6 @@ class CreateValves < ActiveRecord::Migration[5.1]
       t.integer :relay_index
       t.string :relay2valve_color
       t.integer :cmd
-      t.datetime :base_time
 
       t.timestamps
     end

@@ -1,4 +1,3 @@
-require 'chronic'
 #
 # Valve definitions
 #
@@ -14,11 +13,11 @@ WaterManager.create(state: 'Standby')
 Porter.create(host_name: 'localhost', port_number: 3000)
 #
 # rails g scaffold Valve name:string pin:integer --force
-atrium = Valve.create(name: 'Atrium', gpio_pin: 7, cmd:0, bb_pin: 27, cpu2bb_color: 'red',         relay_module: 2, relay_index: 1, base_time: Time.now)
-back   = Valve.create(name: 'Back',   gpio_pin:22, cmd:0, bb_pin: 22, cpu2bb_color: 'cream',       relay_module: 1, relay_index: 4, base_time: Time.now)
-deck   = Valve.create(name: 'Deck',   gpio_pin:12, cmd:0, bb_pin: 12, cpu2bb_color: 'brown',       relay_module: 1, relay_index: 1, base_time: Time.now)
-front  = Valve.create(name: 'Front',  gpio_pin:16, cmd:0, bb_pin: 18, cpu2bb_color: 'white-brown', relay_module: 1, relay_index: 3, base_time: Time.now)
-tomato = Valve.create(name: 'Tomato', gpio_pin:18, cmd:0, bb_pin: 16, cpu2bb_color: 'orange',      relay_module: 1, relay_index: 2, base_time: Time.now)
+atrium = Valve.create(name: 'Atrium', gpio_pin: 7, cmd:0, bb_pin: 27, cpu2bb_color: 'red',         relay_module: 2, relay_index: 1)
+back   = Valve.create(name: 'Back',   gpio_pin:22, cmd:0, bb_pin: 22, cpu2bb_color: 'cream',       relay_module: 1, relay_index: 4)
+deck   = Valve.create(name: 'Deck',   gpio_pin:12, cmd:0, bb_pin: 12, cpu2bb_color: 'brown',       relay_module: 1, relay_index: 1)
+front  = Valve.create(name: 'Front',  gpio_pin:16, cmd:0, bb_pin: 18, cpu2bb_color: 'white-brown', relay_module: 1, relay_index: 3)
+tomato = Valve.create(name: 'Tomato', gpio_pin:18, cmd:0, bb_pin: 16, cpu2bb_color: 'orange',      relay_module: 1, relay_index: 2)
 
 # production sprinkle set; keep updated as watering needs evolve.
 hour = 7
@@ -43,7 +42,7 @@ ix = 2
 
 2.times.each do
   Valve.all.each do |valve|
-    Sprinkle.create( time_input: seed_time(ix) , duration: 1, valve_id: valve.id )
+    Sprinkle.create( time_input: seed_time(ix) , duration: 1, valve_id: valve.id, state: 'Idle' )
     ix += 2
   end
 end

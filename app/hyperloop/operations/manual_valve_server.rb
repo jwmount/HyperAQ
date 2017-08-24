@@ -25,9 +25,20 @@ class ManualValveServer < Hyperloop::ServerOp
     valve.update(cmd: (valve.cmd == ON ? OFF : ON))
     # refresh in-memory valve object
     valve = Valve.find(id)
-    log("#{valve.name}.cmd --> #{valve.cmd}\n")
+    log "Valve #{valve.name}.cmd --> #{valve.cmd}\n"
+    
     # start/stop a History record for this valve.
-    valve.cmd == ON ? valve.active_history_id = History.start(valve).id : History.find(valve.active_history_id).stop
+    if valve.cmd == ON 
+      history = History.start(valve)
+      valve.active_history_id = history.id
+      log "created a new history @ #{history.start_time_display}\n"
+    else
+      history = History.find(valve.active_history_id)
+      history.stop
+      log "update and save History(#{history.id}) @ #{history.stop_time_display}\n"
+      valve.active_history_id = 0
+    end
+
     # Finally fire the actual valve GPIO bit
     valve.save!
     valve.command(valve.cmd)
