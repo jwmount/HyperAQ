@@ -22,12 +22,12 @@ tomato = Valve.create(name: 'Tomato', gpio_pin:18, cmd:0, bb_pin: 16, cpu2bb_col
 # production sprinkle set; keep updated as watering needs evolve.
 hour = 7
 # %w{ Sun Mon Tue Wed Thu Fri Sat }.each do |day|
-#   %w{ am pm }.each do |meridian|
-#     Sprinkle.create( time_input: "#{day} #{hour}:00 #{meridian}", duration:  3, valve_id: atrium.id) #unless meridian == 'pm'
-#     Sprinkle.create( time_input: "#{day} #{hour}:05 #{meridian}", duration:  3, valve_id: back.id)
-#     Sprinkle.create( time_input: "#{day} #{hour}:10 #{meridian}", duration:  3, valve_id: deck.id) unless meridian == 'pm'
-#     Sprinkle.create( time_input: "#{day} #{hour}:15 #{meridian}", duration:  3, valve_id: front.id) #unless meridian == 'pm'
-#     Sprinkle.create( time_input: "#{day} #{hour}:20 #{meridian}", duration:  5, valve_id: tomato.id)
+#   %w{ 0 12 }.each do |meridian|
+#     Sprinkle.create( time_input: "#{day} #{hour+meridian}:00", duration:  3, valve_id: atrium.id) #unless meridian == 12
+#     Sprinkle.create( time_input: "#{day} #{hour+meridian}:05 , duration:  3, valve_id: back.id)
+#     Sprinkle.create( time_input: "#{day} #{hour+meridian}:10 , duration:  3, valve_id: deck.id) unless meridian == 12
+#     Sprinkle.create( time_input: "#{day} #{hour+meridian}:15 , duration:  3, valve_id: front.id) #unless meridian == 12
+#     Sprinkle.create( time_input: "#{day} #{hour+meridian}:20 , duration:  5, valve_id: tomato.id)
 #   end
 # end
 
