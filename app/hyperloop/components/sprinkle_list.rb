@@ -50,7 +50,17 @@ class SprinkleList < Hyperloop::Component
       end
       TBODY do
         Sprinkle.all.each do |sprinkle| 
-          SprinkleRow(sprinkle: sprinkle)
+          TR do
+            TD { sprinkle.state }
+
+            TD { formatted_time(sprinkle.next_start_time) }
+          
+            TD { sprinkle.time_input }    
+          
+            TD { sprinkle.duration.to_s }
+          
+            TD { sprinkle.valve.name }
+          end
         end
       end
     end  
