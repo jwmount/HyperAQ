@@ -1,3 +1,5 @@
+require 'models/valve'
+
 class ValveButtons < Hyperloop::Component
 
   before_mount do
@@ -13,26 +15,26 @@ class ValveButtons < Hyperloop::Component
   end
 end
 
-class ValveButton < Hyperloop::Component
-  param :valve
+# class ValveButton < Hyperloop::Component
+#   param :valve
 
-  def render
-    LI do
-      BUTTON(class: "btn #{state(params.valve)} navbar-btn") do
-        params.valve.name
-      end.on(:click) {command(params.valve)}
-    end
-  end
+#   def render
+#     LI do
+#       BUTTON(class: "btn #{state(params.valve)} navbar-btn") do
+#         params.valve.name
+#       end.on(:click) {command(params.valve)}
+#     end
+#   end
 
-  def command(valve)
-    # signal the ServeOp to toggle the valve, and create a History
-    ManualValveServer.run(valve_id: valve.id)
-    HistoryList.render(DIV)
-  end
+#   def command(valve)
+#     # signal the ServeOp to toggle the valve, and create a History
+#     ManualValveServer.run(valve_id: valve.id)
+#     HistoryList.render(DIV)
+#   end
 
-  def state(valve)
-    valve.cmd == 0 ? "btn-primary" : 'btn-success'
-  end
+#   def state(valve)
+#     valve.cmd == 0 ? "btn-primary" : 'btn-success'
+#   end
 
-end
+# end
 

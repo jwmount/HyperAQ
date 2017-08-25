@@ -1,3 +1,5 @@
+require 'models/valve'
+
 class ValveButton < Hyperloop::Component
   param :valve
 
@@ -10,9 +12,9 @@ class ValveButton < Hyperloop::Component
   end
 
   def command(valve)
-    # signal the ServeOp to toggle the valve, and create a History
+    # signal the ServerOp to toggle the valve, and create a History
     ManualValveServer.run(valve_id: valve.id)
-    Layout.render
+    # Layout.render()
   end
 
   def state(valve)

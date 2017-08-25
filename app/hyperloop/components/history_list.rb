@@ -44,7 +44,7 @@ class HistoryList < Hyperloop::Component
         end
       end
       TBODY do
-        History.all.each do |history| 
+        sort(History.all).each do |history| 
           HistoryRow(history: history)
         end
       end
@@ -57,4 +57,16 @@ class HistoryList < Hyperloop::Component
     v = Valve.find(valve_id)
     v.name
   end
+
+  def sort(histories)
+    histories.sort_by! {|s| s.start_time}
+    length = histories.length
+    result = []
+    histories.each do |history|
+      length -= 1
+      result[length] = history
+    end
+    result
+  end
+
 end

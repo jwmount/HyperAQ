@@ -49,9 +49,7 @@ class SprinkleList < Hyperloop::Component
         end
       end
       TBODY do
-        # sprinkles =  Sprinkle.order(:next_start_time)
-        # sprinkles.each do |sprinkle| 
-        Sprinkle.all.each do |sprinkle|
+        sort(Sprinkle.all).each do |sprinkle|
           TR do
             TD { sprinkle.state }
 
@@ -69,7 +67,13 @@ class SprinkleList < Hyperloop::Component
     end  
   end
 
+  def sort(sprinkles)
+    sprinkles.sort_by! {|s| s.next_start_time}
+    sprinkles
+  end
+
   def mark_next
+    # Set the status of the first sprinkle in the list to 'Next'
     s = Sprinkle.all
     s[0].state = 'Next'
     s[0].save
