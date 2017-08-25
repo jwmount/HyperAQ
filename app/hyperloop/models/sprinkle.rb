@@ -23,7 +23,7 @@ SECONDS_PER_DAY = 24*SECONDS_PER_HOUR
 SECONDS_PER_WEEK = SECONDS_PER_DAY * 7
 
 CRONTAB_STRFTIME = "%02M %02H * * %w"
-TIME_INPUT_STRFTIME = ""
+TIME_INPUT_STRFTIME = "%a %d %b %l:%M %P"
 
 STATES = %w{ NEXT ACTIVE IDLE }
 
@@ -46,43 +46,21 @@ class Sprinkle < ActiveRecord::Base
   #
   # business logic methods
   #
-  
-  # parse the time input string, returning a Time object
-  def schedule_time
-    ti = Time.parse(time_input)
-    
-    t = Time.now
-    answer = Time.new(t.year, t.mon, t.mday, ti.hour, ti.minute)
-    answer += (ti.wday - t.wday) * SECONDS_PER_DAY 
-    self.next_start_time = answer
-    self.save
-    answer
-  end
 
   # answer a Time object representing the next start_time
   def start_time
-    # merge the schedule weekday, hour and minute with today's year, month, weekday and second to form the next start_time
+    # merge the schedule weekday, hour and minute with today's year, month, weekday to form the next start_time
     t = Time.now
-    s = schedule_time
+    s = Time.parse(time_input)
+    log "Time.parse --> #{time_as_string(s)}\n"
 
-    schedule_time_as_string = s.strftime("%a %d %b %l:%M %P")
-    # log "sprinkle.schedule_time --> #{schedule_time_as_string}\n"
+    answer = Time.new(t.year, t.mon, t.mday, s.hour, s.min, 0)
+    log "raw answer --> #{time_as_string(answer)}\n"
 
-    answer = Time.new(t.year, t.mon, t.mday, s.hour, s.min)
-    # adjust weekday so the answer weekday aligns with schedule_time weekday
-    while s.wday < t.wday
-      answer += DAY_OF_WEEK_MAP[s.wday][answer.wday] * SECONDS_PER_DAY
-    end
-    while t.wday < s.wday
-    end
-    # if the computed time is earlier than the current time, then bump it by a week
-    if answer < t
-      # log "answer < t\n"
-      answer += SECONDS_PER_WEEK 
-    end
-
-    answer_as_string = answer.strftime("%a %d %b %l:%M %P")
-    # log "sprinkle.start_time --> #{answer_as_string}\n"
+    # adjust weekday so the answer weekday aligns with time_input weekday
+    answer += DAY_OF_WEEK_MAP[s.wday][answer.wday] * SECONDS_PER_DAY
+    answer_as_string = answer.strftime(TIME_INPUT_STRFTIME)
+    log "sprinkle.start_time --> #{time_as_string(answer)}\n"
 
     answer    
   end
@@ -100,5 +78,11 @@ class Sprinkle < ActiveRecord::Base
     end
     t.strftime(CRONTAB_STRFTIME)
   end
+
+  private
+
+    def time_as_string(t)
+      t.strftime(TIME_INPUT_STRFTIME)
+    end
  
 end

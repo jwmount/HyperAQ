@@ -12,7 +12,7 @@ class ValveButton < Hyperloop::Component
   def command(valve)
     # signal the ServeOp to toggle the valve, and create a History
     ManualValveServer.run(valve_id: valve.id)
-    # HistoryList.render(DIV)
+    Layout.render
   end
 
   def state(valve)

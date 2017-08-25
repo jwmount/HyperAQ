@@ -3,7 +3,7 @@ class ValvesController < ApplicationController
   before_action :set_valve, only: [:update]
   skip_before_action :verify_authenticity_token
 
-  LOGFILE = "log/crontab_valve.log"
+  LOGFILE = "log/valve_controller.log"
 
   def log(msg)
     f = File.open(LOGFILE, 'a')

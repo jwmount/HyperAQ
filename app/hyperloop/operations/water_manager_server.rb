@@ -76,6 +76,8 @@ class WaterManagerServer < Hyperloop::ServerOp
         crontab_line =  "#{s.to_crontab(action)} sh #{valve_actuator_path} #{s.valve.to_crontab(action)} #{p.localhost_with_port} #{s.id}\n" 
         f.write crontab_line
       end
+      s.next_start_time = s.start_time
+      s.save
     end
     f.close
     system("crontab #{CRONTAB}")

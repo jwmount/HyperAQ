@@ -49,7 +49,9 @@ class SprinkleList < Hyperloop::Component
         end
       end
       TBODY do
-        Sprinkle.all.each do |sprinkle| 
+        # sprinkles =  Sprinkle.order(:next_start_time)
+        # sprinkles.each do |sprinkle| 
+        Sprinkle.all.each do |sprinkle|
           TR do
             TD { sprinkle.state }
 
@@ -62,8 +64,15 @@ class SprinkleList < Hyperloop::Component
             TD { sprinkle.valve.name }
           end
         end
+        mark_next
       end
     end  
+  end
+
+  def mark_next
+    s = Sprinkle.all
+    s[0].state = 'Next'
+    s[0].save
   end
 
   def formatted_time(t)

@@ -28,14 +28,14 @@ class Valve < ApplicationRecord
       
       log "\nvalve --> #{valve.name}\n"
 
-      cmd = params['cmd'].to_i
-      log "cmd --> #{cmd}\n"
+      valve.cmd = params['cmd'].to_i
+      log "valve.cmd --> #{valve.cmd}\n"
       active_sprinkle_id = params['active_sprinkle_id'].to_i
       log "active_sprinkle_id --> #{active_sprinkle_id}\n"
 
       # byebug 
       
-      if cmd == ON # start valve sequence
+      if valve.cmd == ON # start valve sequence
 
         sprinkle = Sprinkle.find(active_sprinkle_id)
         sprinkle.state = ACTIVE
