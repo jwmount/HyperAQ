@@ -6,7 +6,7 @@ Models
 
   * Valve
 
-    This is the fundamental object of this app.  There are 5 valves under management.  Each valve has 3 key attributes: name, command_state, and GPIO pin number.
+    This is the fundamental object of this app.  There are 5 valves under management.  Each valve has 3 key attributes: name, command_state, and GPIO pin number.  A valve can be controlled by schedule, simply create some sprinkles that specify valve on/off times.  A valve also can be controlled manually, by pushing one of the valve buttons on the nav bar.  In both cases, a dependent History object is created to log the on/off times.
 
   * Sprinkle
 
@@ -17,7 +17,7 @@ Models
     Histories are simple logging objects.  Each History is owned by a Valve, and has two time states: start and stop.  When a Valve goes on, a History object is created with a start time set.  When that Valve goes off, the history object is updated with a stop time and saved for display purposes.
 
   * WaterManager
-  
+
     WaterManager is a singleton, and acts as the manager of the sprinkling schedule.  When the 'Standby' button on the nav bar is pushed, the WaterManager requests the WaterManagerServer, a ServerOp, to build a new crontab from the sprinkles and activate the system for scheduled sprinkling.
 
   * Porter
