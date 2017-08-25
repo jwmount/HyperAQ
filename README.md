@@ -1,24 +1,31 @@
-# README
+# HyperAQ
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is the Hyperloop version of the Aquarius sprinkler server.
 
-Things you may want to cover:
+Models
 
-* Ruby version
+  * Valve
 
-* System dependencies
+  * Sprinkle
 
-* Configuration
+  * History
 
-* Database creation
+  * WaterManager
 
-* Database initialization
+  * Porter
 
-* How to run the test suite
+Components
 
-* Services (job queues, cache servers, search engines, etc.)
+  * Top Level
+    App
+    * Navbar
+      * PorterStatus
+      * WaterStatus
+      * ValveButtons
+        * ValveButton
+    * Layout
+      * SprinkleList
+        * SpinkleRow
+      * HistoryList
+        * HistoryRow
 
-* Deployment instructions
-
-* ...
